@@ -32,6 +32,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Comments"),
+      ),
       body: FutureBuilder(
         future: dataFuture,
         builder: (context, snapshot) {
