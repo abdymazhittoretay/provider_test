@@ -10,6 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late Future<List<Comment>> dataFuture;
+
   Future<List<Comment>> fetchData() async {
     var response = await http.get(
       Uri.https("jsonplaceholder.typicode.com", "/comments"),
@@ -22,10 +24,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    dataFuture = fetchData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: fetchData(),
+        future: dataFuture,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var comments = snapshot.data;
@@ -39,7 +47,7 @@ class _HomePageState extends State<HomePage> {
               },
             );
           } else {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           }
         },
       ),
