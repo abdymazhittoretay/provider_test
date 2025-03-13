@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:provider_test/models/comment.dart';
 import 'package:provider_test/models/favorite_model.dart';
+import 'package:provider_test/pages/favorites_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,7 +35,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Comments")),
+      appBar: AppBar(
+        title: Text("Comments"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FavoritesPage()),
+              );
+            },
+            icon: Icon(Icons.favorite),
+          ),
+        ],
+      ),
       body: FutureBuilder(
         future: dataFuture,
         builder: (context, snapshot) {
