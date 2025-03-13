@@ -6,13 +6,13 @@ class FavoriteModel extends ChangeNotifier {
 
   List<Comment> get favorites => _favorites;
 
-  void add(Comment comment){
-    _favorites.add(comment);
-    notifyListeners();
-  }
-
-  void remove(int index){
-    _favorites.removeAt(index);
-    notifyListeners();
+  void addRemove(Comment comment) {
+    if (_favorites.contains(comment)) {
+      _favorites.remove(comment);
+      notifyListeners();
+    } else {
+      _favorites.add(comment);
+      notifyListeners();
+    }
   }
 }

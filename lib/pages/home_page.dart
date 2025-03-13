@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:provider_test/models/comment.dart';
+import 'package:provider_test/models/favorite_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -48,8 +50,19 @@ class _HomePageState extends State<HomePage> {
                   ),
                   subtitle: Text(comments[index].email),
                   trailing: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.favorite_border),
+                    onPressed: () {
+                      Provider.of<FavoriteModel>(
+                        context,
+                        listen: false,
+                      ).addRemove(comments[index]);
+                    },
+                    icon: Icon(
+                      Provider.of<FavoriteModel>(
+                            context,
+                          ).favorites.contains(comments[index])
+                          ? Icons.favorite
+                          : Icons.favorite_border,
+                    ),
                   ),
                 );
               },
