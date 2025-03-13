@@ -32,9 +32,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Comments"),
-      ),
+      appBar: AppBar(title: Text("Comments")),
       body: FutureBuilder(
         future: dataFuture,
         builder: (context, snapshot) {
@@ -44,8 +42,15 @@ class _HomePageState extends State<HomePage> {
               itemCount: comments!.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(comments[index].body),
+                  title: Text(
+                    comments[index].body,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   subtitle: Text(comments[index].email),
+                  trailing: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.favorite_border),
+                  ),
                 );
               },
             );
